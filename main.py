@@ -5,11 +5,7 @@ import os
 
 # load environment variables
 API_HOST = os.getenv('API_HOST')
-print(f'valor de API HOST: {API_HOST}')
-for key, value in os.environ.items():
-    print(f'{key}: {value}')
-# api_key = os.getenv("STABE_DIFFUSION_API_KEY")
-# engine_id = os.getenv("ENGINE_ID")
+# print(f'valor de API HOST: {API_HOST}')
 
 # initialize a Flask app with CORS enabled
 app = Flask(__name__)
@@ -26,11 +22,14 @@ def root():
 
 @app.route("/generate", methods=["POST"])
 def generate():
-  translate = request.headers.get('translate')
-  mensaje = request.headers.get('message')
+  # recogemos el formulario (body)
+  r_form = request.form
+
+  translate = r_form.get('translate')
+  mensaje = r_form.get('message')
 
   if (translate.lower() == 'true'):
-    idioma = request.headers.get('lang')
+    idioma = r_form.get('lang')
     pregunta = 'puedes traducirme al idioma ' + idioma + ' lo siguiente: ' + mensaje
   else:
     pregunta = mensaje
