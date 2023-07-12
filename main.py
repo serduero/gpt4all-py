@@ -12,9 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Initialize the service
-# service = UseLLM(service_url=API_HOST)
-service = UseLLM(service_url="https://usellm.org/api/llm")
-
+service = UseLLM(service_url=API_HOST)
 
 @app.route("/", methods=["GET"])
 def root():
@@ -50,7 +48,6 @@ def generate():
   return jsonify(response.content)
 
 def main():
-  # app.run(host="", port=8000)
   from waitress import serve
   serve(app, host="0.0.0.0", port=8080)
   print("Server running on  port 8080")
