@@ -4,7 +4,8 @@ from usellm import Message, Options, UseLLM
 import os
 
 # load environment variables
-API_HOST = os.getenv('API_HOST')
+API_HOST = os.environ['API_HOST']
+# API_HOST = os.getenv('API_HOST')
 # print(f'valor de API HOST: {API_HOST}')
 
 # initialize a Flask app with CORS enabled
@@ -13,6 +14,7 @@ CORS(app)
 
 # Initialize the service
 service = UseLLM(service_url=API_HOST)
+
 
 @app.route("/", methods=["GET"])
 def root():
@@ -34,7 +36,6 @@ def generate():
 
   # Prepare the conversation
   messages = [
-    # Message(role="system", content="You are a helpful assistant."),
     Message(role="user", content=pregunta),
   ]
   options = Options(messages=messages)
@@ -48,9 +49,10 @@ def generate():
   return jsonify(response.content)
 
 def main():
+  # app.run(host="", port=8000)
   from waitress import serve
   serve(app, host="0.0.0.0", port=8080)
-  print("Server running on  port 8080")
+  print("Server running on port 8080")
 
 
 if __name__ == "__main__":
