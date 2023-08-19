@@ -28,7 +28,7 @@ def generate():
 
   if (translate.lower() == 'true'):
     idioma = r_form.get('lang')
-    pregunta = 'puedes traducirme al idioma ' + idioma + ' lo siguiente: ' + mensaje
+    pregunta = 'cómo traducirías al idioma ' + idioma + ' esta frase: ' + mensaje
   else:
     pregunta = mensaje
 
